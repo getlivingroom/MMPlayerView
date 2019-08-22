@@ -583,22 +583,22 @@ extension MMPlayerLayer {
             })
         }
         
-        NotificationCenter.default.addObserver(forName: UIApplication.willResignActiveNotification, object: nil, queue: nil, using: { [weak self] (nitification) in
-            switch self?.currentPlayStatus ?? .unknown {
-            case .pause:
-                self?.isBackgroundPause = true
-            default:
-                self?.isBackgroundPause = false
-            }
-            self?.player?.pause()
-        })
-        
-        NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: nil, using: { [weak self] (nitification) in
-            if self?.isBackgroundPause == false {
-                self?.player?.play()
-            }
-            self?.isBackgroundPause = false
-        })
+//        NotificationCenter.default.addObserver(forName: UIApplication.willResignActiveNotification, object: nil, queue: nil, using: { [weak self] (nitification) in
+//            switch self?.currentPlayStatus ?? .unknown {
+//            case .pause:
+//                self?.isBackgroundPause = true
+//            default:
+//                self?.isBackgroundPause = false
+//            }
+//            self?.player?.pause()
+//        })
+//
+//        NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: nil, using: { [weak self] (nitification) in
+//            if self?.isBackgroundPause == false {
+//                self?.player?.play()
+//            }
+//            self?.isBackgroundPause = false
+//        })
         
         NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: nil, queue: nil, using: { [weak self] (_) in
           
