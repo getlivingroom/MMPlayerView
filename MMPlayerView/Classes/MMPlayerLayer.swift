@@ -34,6 +34,15 @@ public extension MMPlayerLayer {
                 return false
             }
         }
+        
+        static func != (lhs: PlayStatus, rhs: PlayStatus) -> Bool {
+            switch (lhs, rhs) {
+            case (.failed(let l), .failed(let r)):
+                return l != r
+            default:
+                return lhs != rhs
+            }
+        }
     }
     
     enum CoverFitType {
@@ -603,8 +612,10 @@ extension MMPlayerLayer {
         NotificationCenter.default.addObserver(forName: .AVPlayerItemDidPlayToEndTime, object: nil, queue: nil, using: { [weak self] (_) in
           
             if self?.repeatWhenEnd == true {
-                self?.player?.seek(to: CMTime.zero)
-                self?.player?.play()
+                if (self?.currentPlayStatus ?? .unknown) != .pause {
+                    self?.player?.seek(to: CMTime.zero)
+                    self?.player?.play()
+                }
             } else if let s = self?.currentPlayStatus {
                 switch s {
                 case .playing, .pause:
